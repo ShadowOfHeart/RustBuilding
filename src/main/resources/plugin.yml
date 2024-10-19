@@ -1,0 +1,4 @@
+name: Buildings
+version: '${version}'
+main: com.example.buildings.BuildingPlanGUI
+api-version: '1.16'
