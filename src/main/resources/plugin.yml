@@ -1,4 +1,4 @@
 name: Buildings
 version: '${version}'
-main: com.example.buildings.BuildingPlanGUI
+main: com.example.buildings.BuildingPlanPlugin
 api-version: '1.16'
