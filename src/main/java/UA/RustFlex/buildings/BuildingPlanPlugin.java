@@ -12,10 +12,10 @@ public class BuildingPlanPlugin extends JavaPlugin {
     public void onEnable() {
         buildingPlanManager = new BuildingPlanManager();
         getServer().getPluginManager().registerEvents(new BuildingPlanGUIListener(buildingPlanManager), this);
+
     }
 
     @Override
     public void onDisable() {
-        // Логика при отключении плагина (если необходимо)
     }
 }

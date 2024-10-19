@@ -14,14 +14,12 @@ public class BuildingPlanGUIListener implements Listener {
         this.buildingPlanManager = buildingPlanManager;
     }
 
-    // Обработчик события клика в GUI
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        // Проверка, что игрок кликает в нашем GUI
-        if (event.getInventory().equals(buildingPlanManager.getGUI())) {
-            event.setCancelled(true);  // Отключаем возможность забирать предметы из GUI
+        if (event.getInventory().equals(buildingPlanManager.getGUI()) && event.getCurrentItem() != null) {
+            event.setCancelled(true);
             Player player = (Player) event.getWhoClicked();
-            player.closeInventory();   // Закрываем инвентарь после клика
+            player.closeInventory();
         }
     }
 }
