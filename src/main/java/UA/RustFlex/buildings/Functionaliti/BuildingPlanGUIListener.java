@@ -5,9 +5,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 public class BuildingPlanGUIListener implements Listener {
 
+    private static final String GUI_TITLE = "Building Plan";
     private final BuildingPlanManager buildingPlanManager;
 
     public BuildingPlanGUIListener(BuildingPlanManager buildingPlanManager) {
@@ -16,10 +19,26 @@ public class BuildingPlanGUIListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getInventory().equals(buildingPlanManager.getGUI()) && event.getCurrentItem() != null) {
+        Inventory clickedInventory = event.getClickedInventory();
+        ItemStack clickedItem = event.getCurrentItem();
+
+
+        if (clickedInventory != null && event.getView().getTitle().equals(GUI_TITLE) && clickedItem != null) {
             event.setCancelled(true);
-            Player player = (Player) event.getWhoClicked();
-            player.closeInventory();
+            handlePlayerInteraction((Player) event.getWhoClicked(), clickedItem);
+        }
+    }
+
+    private void handlePlayerInteraction(Player player, ItemStack clickedItem) {
+        player.closeInventory();
+
+        switch (clickedItem.getType()) {
+            case GLASS_PANE:
+                player.sendMessage("You clicked on " + clickedItem.getItemMeta().getDisplayName());
+                break;
+            default:
+                player.sendMessage("Invalid item clicked.");
+                break;
         }
     }
 }
